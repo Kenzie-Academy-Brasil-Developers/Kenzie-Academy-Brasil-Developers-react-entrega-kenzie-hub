@@ -4,8 +4,13 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../../axios";
+import { InputNormal } from "../../components/inputs";
+import { DivForm, DivInputOio, MainInputs } from "../../components/containers";
+import { ButtonEntrar, ButtonEscuro } from "../../components/botoes";
+import { ErrorMsg, MainTitle, SpanLogin } from "../../components/text";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-function LoginPage({ setUser }) {
+function LoginPage({ setUser, oio, setOio }) {
   const navigate = useNavigate();
   const schema = yup.object().shape({
     email: yup.string().required("email obrigatorio"),
@@ -55,25 +60,51 @@ function LoginPage({ setUser }) {
   }
 
   return (
-    <main>
-      <h1>KenzieHub</h1>
-      <div>
+    <MainInputs>
+      <MainTitle>KenzieHub</MainTitle>
+      <DivForm>
         <h2>Login</h2>
         <form onSubmit={handleSubmit(onSubmitForm)}>
           <label htmlFor="email">Email</label>
-          <input type="email" name="" id="email" {...register("email")} />
-          {errors.email?.message}
+          <InputNormal
+            type="email"
+            name=""
+            id="email"
+            placeholder="Digite seu e-mail"
+            {...register("email")}
+          />
+          <ErrorMsg>{errors.email?.message}</ErrorMsg>
           <label htmlFor="senha">Senha</label>
-          <input type="password" name="" id="senha" {...register("password")} />
-          {errors.password?.message}
-          <button type="submit">Entrar</button>
+          <DivInputOio>
+            <InputNormal
+              type={oio}
+              name=""
+              id="senha"
+              placeholder="Digite sua senha"
+              {...register("password")}
+            />
+            <button
+              type="button"
+              onClick={() =>
+                oio === "password" ? setOio("text") : setOio("password")
+              }
+            >
+              {oio === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
+            </button>
+          </DivInputOio>
+          <ErrorMsg>{errors.password?.message}</ErrorMsg>
+          <ButtonEntrar type="submit">Entrar</ButtonEntrar>
         </form>
-        <span>Ainda não tem cadastro?</span>
-        <button type="button" onClick={proCadastro}>
+        <SpanLogin>Ainda não tem cadastro?</SpanLogin>
+        <ButtonEscuro
+          style={{ width: "100%" }}
+          type="button"
+          onClick={proCadastro}
+        >
           Cadastrar
-        </button>
-      </div>
-    </main>
+        </ButtonEscuro>
+      </DivForm>
+    </MainInputs>
   );
 }
 
