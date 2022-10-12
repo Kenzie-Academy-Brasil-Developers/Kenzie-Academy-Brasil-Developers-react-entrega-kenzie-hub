@@ -54,7 +54,7 @@ export const Header = styled.header`
 
   @media (min-width: 768px) {
     justify-content: space-around;
-    width: 30%;
+    width: 100%;
   }
 `;
 
