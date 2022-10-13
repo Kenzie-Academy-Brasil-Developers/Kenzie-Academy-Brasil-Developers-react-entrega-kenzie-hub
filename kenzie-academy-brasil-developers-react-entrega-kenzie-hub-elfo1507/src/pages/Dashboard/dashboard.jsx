@@ -8,7 +8,10 @@ import {
 } from "../../components/containers";
 import { MainTitle, Module } from "../../components/text";
 
-function Dashboard({ user }) {
+function Dashboard() {
+
+  const {user} = useContext(UserContext)
+
   const navigate = useNavigate();
   function logout() {
     localStorage.clear();

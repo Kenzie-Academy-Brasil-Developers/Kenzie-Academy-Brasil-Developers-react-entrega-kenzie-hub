@@ -8,22 +8,15 @@ import { useState } from "react";
 import { GlobalStyles } from "./styles/global";
 
 function App() {
-  const [oio, setOio] = useState("password");
   const [user, setUser] = useState();
   return (
     <div className="App">
       <GlobalStyles />
       <ToastContainer />
       <Routes>
-        <Route
-          path="/"
-          element={<LoginPage setUser={setUser} oio={oio} setOio={setOio} />}
-        />
-        <Route
-          path="/dashboard"
-          element={<Dashboard user={user}/>}
-        />
-        <Route path="/register" element={<RegisterPage oio={oio} setOio={setOio} />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </div>
   );

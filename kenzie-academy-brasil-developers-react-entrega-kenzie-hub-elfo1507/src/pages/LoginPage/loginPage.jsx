@@ -9,8 +9,14 @@ import { DivForm, DivInputOio, MainInputs } from "../../components/containers";
 import { ButtonEntrar, ButtonEscuro } from "../../components/botoes";
 import { ErrorMsg, MainTitle, SpanLogin } from "../../components/text";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useContext } from "react";
+import { OioContext } from "../../Providers/Oio/oio";
+import { UserContext } from "../../Providers/User/User";
 
-function LoginPage({ setUser, oio, setOio }) {
+function LoginPage() {
+  const { oio, setOio } = useContext(OioContext);
+  const { setUser } = useContext(UserContext);
+
   const navigate = useNavigate();
   const schema = yup.object().shape({
     email: yup.string().required("email obrigatorio"),
