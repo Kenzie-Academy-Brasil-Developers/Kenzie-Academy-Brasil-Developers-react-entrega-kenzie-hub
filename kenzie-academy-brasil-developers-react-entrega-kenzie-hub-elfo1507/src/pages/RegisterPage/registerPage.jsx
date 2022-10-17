@@ -3,11 +3,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { instance } from "../../axios";
-import { InputNormal, OptionForm, SelectForm } from "../../components/inputs";
-import { DivForm, Header, MainInputs } from "../../components/containers";
-import { ButtonEntrar, ButtonEscuro } from "../../components/botoes";
-import { ErrorMsg, MainTitle, SpanLogin } from "../../components/text";
+import { instanceNoAuth } from "../../axios";
+import { InputNormal, OptionForm, SelectForm } from "../../styles/inputs";
+import { DivForm, Header, MainInputs } from "../../styles/containers";
+import { ButtonEntrar, ButtonEscuro } from "../../styles/botoes";
+import { ErrorMsg, MainTitle, SpanLogin } from "../../styles/text";
 
 function RegisterPage({ oio, setOio }) {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ function RegisterPage({ oio, setOio }) {
   });
 
   const onSubmitForm = (dados) => {
-    instance
+    instanceNoAuth
       .post("/users", {
         name: dados.name,
         email: dados.email,

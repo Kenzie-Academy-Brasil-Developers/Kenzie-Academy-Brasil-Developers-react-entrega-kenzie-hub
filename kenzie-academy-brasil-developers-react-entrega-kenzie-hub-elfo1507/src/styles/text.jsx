@@ -17,7 +17,12 @@ export const ErrorMsg = styled.p`
   font-size: var(--headlineSize);
 `;
 
-export const Module = styled.span`
+export const TextoPqn = styled.span`
   color: var(--grey1);
+  font-size: var(--headlineSize);
+`;
+
+export const TextoPqnClaro = styled.label`
+  color: var(--grey0);
   font-size: var(--headlineSize);
 `;

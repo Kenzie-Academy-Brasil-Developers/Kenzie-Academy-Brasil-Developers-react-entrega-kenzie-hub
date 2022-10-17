@@ -3,11 +3,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { instance } from "../../axios";
-import { InputNormal } from "../../components/inputs";
-import { DivForm, DivInputOio, MainInputs } from "../../components/containers";
-import { ButtonEntrar, ButtonEscuro } from "../../components/botoes";
-import { ErrorMsg, MainTitle, SpanLogin } from "../../components/text";
+import { instanceNoAuth } from "../../axios";
+import { InputNormal } from "../../styles/inputs";
+import { DivForm, DivInputOio, MainInputs } from "../../styles/containers";
+import { ButtonEntrar, ButtonEscuro } from "../../styles/botoes";
+import { ErrorMsg, MainTitle, SpanLogin } from "../../styles/text";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useContext } from "react";
 import { OioContext } from "../../Providers/Oio/oio";
@@ -38,7 +38,7 @@ function LoginPage() {
   });
 
   const onSubmitForm = (dados) => {
-    instance
+    instanceNoAuth
       .post("/sessions", {
         email: dados.email,
         password: dados.password,
@@ -46,8 +46,8 @@ function LoginPage() {
       .then((res) => {
         localStorage.setItem("@token", res.data.token);
         localStorage.setItem("@userId", res.data.user.id);
-        setUser(res.data.user);
         console.log(res.data.user);
+        setUser(res.data.user);
         toast.success("Login feito com sucesso", {
           theme: "dark",
         });
@@ -64,7 +64,6 @@ function LoginPage() {
   function proCadastro() {
     navigate("/register");
   }
-
   return (
     <MainInputs>
       <MainTitle>KenzieHub</MainTitle>

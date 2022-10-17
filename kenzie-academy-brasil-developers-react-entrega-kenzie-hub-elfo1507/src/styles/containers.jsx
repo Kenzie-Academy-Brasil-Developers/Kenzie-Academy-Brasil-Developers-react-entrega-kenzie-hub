@@ -46,11 +46,15 @@ export const DivForm = styled.div`
 `;
 
 export const Header = styled.header`
+  background-color: var(--grey4);
   display: flex;
   width: 100%;
   padding: 0 10px;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
 
   @media (min-width: 768px) {
     justify-content: space-around;
@@ -70,6 +74,7 @@ export const DivInputOio = styled.div`
 `;
 
 export const DivInfos = styled.div`
+  margin-top: 50px;
   height: 100px;
   display: flex;
   flex-direction: column;
@@ -84,13 +89,39 @@ export const DivInfos = styled.div`
   }
 `;
 
-export const DivMessagemPc = styled.div`
-  display: none;
+export const ContainerTech = styled.li`
+  background-color: var(--grey4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 2px;
+  padding: 10px 5px;
+`;
 
+export const ContainerTechs = styled.ul`
+  background-color: var(--grey3);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 2px;
+  gap: 10px;
+`;
+
+export const DivTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+`;
+
+export const DivItemTech = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const DivCoisas = styled.div`
   @media (min-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    padding: 0 240px;
-    margin-top: 10px;
+    padding: 0 236px;
   }
 `;

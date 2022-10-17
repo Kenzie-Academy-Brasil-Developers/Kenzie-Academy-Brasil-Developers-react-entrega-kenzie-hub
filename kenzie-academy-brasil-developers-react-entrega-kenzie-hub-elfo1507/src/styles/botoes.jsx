@@ -7,6 +7,7 @@ export const ButtonEntrar = styled.button`
   padding: 10px;
   width: 100%;
   margin: 10px 0;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--mainColorNeg);
@@ -22,4 +23,18 @@ export const ButtonEscuro = styled.button`
   border-radius: 3px;
   padding: 10px;
   margin: 10px 0;
+  cursor: pointer;
+`;
+
+export const Plus = styled.button`
+  padding: 5px;
+  color: var(--grey0);
+  background-color: var(--grey3);
+  cursor: pointer;
+`;
+
+export const Trash = styled.button`
+  color: var(--grey0);
+  margin: 10px;
+  cursor: pointer;
 `;
