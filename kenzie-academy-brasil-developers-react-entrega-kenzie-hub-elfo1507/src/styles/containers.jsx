@@ -65,7 +65,7 @@ export const Header = styled.header`
 export const DivInputOio = styled.div`
   display: flex;
   background-color: var(--grey2);
-  height: 30px;
+  height: 35px;
   padding: 0 5px;
 
   button {

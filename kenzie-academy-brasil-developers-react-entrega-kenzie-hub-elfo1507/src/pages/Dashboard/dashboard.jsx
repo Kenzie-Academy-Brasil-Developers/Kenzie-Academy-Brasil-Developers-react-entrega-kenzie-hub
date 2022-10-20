@@ -22,7 +22,7 @@ import { toast } from "react-toastify";
 
 function Dashboard() {
   const { modalStatus, setModal } = useContext(ModalContext);
-  const { user, techs, setTechs } = useContext(UserContext);
+  const { user, techs, setTechs, isLogged } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -33,15 +33,14 @@ function Dashboard() {
   function criarModal() {
     setModal(true);
   }
-
-  useEffect(() => setTechs(user?.techs), [user?.techs, setTechs]);
-
+  useEffect(() => isLogged(), []);
   function deletarTech(id) {
     instanceAuth
       .delete(`/users/techs/${id}`)
-      .then(() =>
-        toast.success("Tecnologia deletada com sucesso", { theme: "dark" })
-      )
+      .then(() => {
+        toast.success("Tecnologia deletada com sucesso", { theme: "dark" });
+        setTechs(techs.filter((element) => element.id !== id));
+      })
       .catch(() =>
         toast.error("Não foi possivel deletar tecnologia, tente novamente", {
           theme: "dark",

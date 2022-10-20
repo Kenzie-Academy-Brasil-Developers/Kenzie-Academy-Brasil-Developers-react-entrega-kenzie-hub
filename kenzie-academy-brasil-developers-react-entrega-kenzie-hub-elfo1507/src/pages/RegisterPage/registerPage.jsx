@@ -9,7 +9,8 @@ import { DivForm, Header, MainInputs } from "../../styles/containers";
 import { ButtonEntrar, ButtonEscuro } from "../../styles/botoes";
 import { ErrorMsg, MainTitle, SpanLogin } from "../../styles/text";
 
-function RegisterPage({ oio, setOio }) {
+
+function RegisterPage() {
   const navigate = useNavigate();
 
   const schema = yup.object().shape({

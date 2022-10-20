@@ -9,13 +9,13 @@ import { DivForm, DivInputOio, MainInputs } from "../../styles/containers";
 import { ButtonEntrar, ButtonEscuro } from "../../styles/botoes";
 import { ErrorMsg, MainTitle, SpanLogin } from "../../styles/text";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { OioContext } from "../../Providers/Oio/oio";
 import { UserContext } from "../../Providers/User/User";
 
 function LoginPage() {
   const { oio, setOio } = useContext(OioContext);
-  const { setUser } = useContext(UserContext);
+  const { setUser, setTechs, isLogged } = useContext(UserContext);
 
   const navigate = useNavigate();
   const schema = yup.object().shape({
@@ -29,6 +29,7 @@ function LoginPage() {
       ),
   });
 
+  useEffect(() => isLogged(), []);
   const {
     register,
     handleSubmit,
@@ -48,6 +49,7 @@ function LoginPage() {
         localStorage.setItem("@userId", res.data.user.id);
         console.log(res.data.user);
         setUser(res.data.user);
+        setTechs(res.data.user.techs);
         toast.success("Login feito com sucesso", {
           theme: "dark",
         });

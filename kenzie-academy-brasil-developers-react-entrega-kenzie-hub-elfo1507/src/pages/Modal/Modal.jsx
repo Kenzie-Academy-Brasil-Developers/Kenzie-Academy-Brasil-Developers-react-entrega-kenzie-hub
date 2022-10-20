@@ -14,9 +14,11 @@ import {
 import { InputNormal, OptionForm, SelectForm } from "../../styles/inputs";
 import { ButtonEntrar } from "../../styles/botoes";
 import { TextoPqnClaro } from "../../styles/text";
+import { UserContext } from "../../Providers/User/User";
 
 function Modal() {
   const { setModal } = useContext(ModalContext);
+  const { techs, setTechs } = useContext(UserContext);
 
   const schema = yup.object().shape({
     techName: yup.string().required("Nome obrigatorio"),
@@ -31,15 +33,23 @@ function Modal() {
     resolver: yupResolver(schema),
   });
   const onSubmitForm = (data) => {
-    instanceAuth.post("/users/techs", {
-      title: data.techName,
-      status: data.techStatus,
-    });
-    setModal(false);
+    instanceAuth
+      .post("/users/techs", {
+        title: data.techName,
+        status: data.techStatus,
+      })
+      .then((res) => {
+        setModal(false);
+        setTechs([
+          ...techs,
+          { title: data.techName, status: data.techStatus, id: res.data.id },
+        ]);
+      });
   };
   function esconderModal() {
     setModal(false);
   }
+
   return (
     <DivBackground>
       <DivModal>
