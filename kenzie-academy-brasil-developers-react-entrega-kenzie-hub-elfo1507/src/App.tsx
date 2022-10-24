@@ -12,13 +12,13 @@ function App() {
     <div className="App">
       <GlobalStyles />
       <ToastContainer />
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route element={<Verify/>}>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-        <Route path="/register" element={<RegisterPage />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route element={<Verify />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
     </div>
   );
 }

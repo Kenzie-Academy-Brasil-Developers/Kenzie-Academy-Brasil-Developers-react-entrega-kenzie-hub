@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { instanceNoAuth } from "../../axios";
 import { InputNormal, OptionForm, SelectForm } from "../../styles/inputs";
@@ -9,6 +9,14 @@ import { DivForm, Header, MainInputs } from "../../styles/containers";
 import { ButtonEntrar, ButtonEscuro } from "../../styles/botoes";
 import { ErrorMsg, MainTitle, SpanLogin } from "../../styles/text";
 
+interface iData {
+  name?: string;
+  email?: string;
+  password?: string;
+  bio?: string;
+  contact?: string;
+  course_module?: string;
+}
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -20,7 +28,7 @@ function RegisterPage() {
       .string()
       .required("senha obrigatoria")
       .matches(
-        /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Zaz]).*$/,
+        /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Za-z]).*$/,
         "Senha invalida"
       ),
     confPass: yup
@@ -40,7 +48,7 @@ function RegisterPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmitForm = (dados) => {
+  const onSubmitForm = (dados: iData) => {
     instanceNoAuth
       .post("/users", {
         name: dados.name,
@@ -61,15 +69,13 @@ function RegisterPage() {
         });
       });
   };
-  function proLogin() {
-    navigate("/");
-  }
+
   return (
     <MainInputs>
       <Header>
         <MainTitle>KenzieHub</MainTitle>
-        <ButtonEscuro type="button" onClick={proLogin}>
-          Voltar
+        <ButtonEscuro type="button">
+          <Link to={"/"}></Link>
         </ButtonEscuro>
       </Header>
       <DivForm>

@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ButtonEscuro, Plus, Trash } from "../../styles/botoes";
 import {
   ContainerDashboard,
@@ -22,19 +22,15 @@ import { toast } from "react-toastify";
 
 function Dashboard() {
   const { modalStatus, setModal } = useContext(ModalContext);
-  const { user, techs, setTechs, isLogged } = useContext(UserContext);
-
-  const navigate = useNavigate();
+  const { user, techs, setTechs } = useContext(UserContext);
 
   function logout() {
     localStorage.clear();
-    navigate("/");
   }
   function criarModal() {
     setModal(true);
   }
-  useEffect(() => isLogged(), []);
-  function deletarTech(id) {
+  function deletarTech(id: string) {
     instanceAuth
       .delete(`/users/techs/${id}`)
       .then(() => {
@@ -53,7 +49,7 @@ function Dashboard() {
       <Header>
         <MainTitle>KenzieHub</MainTitle>
         <ButtonEscuro type="button" onClick={logout}>
-          Voltar
+          <Link to={"/"}></Link>
         </ButtonEscuro>
       </Header>
       <main>

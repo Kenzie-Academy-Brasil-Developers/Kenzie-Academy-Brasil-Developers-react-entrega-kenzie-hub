@@ -2,20 +2,25 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { instanceNoAuth } from "../../axios";
 import { InputNormal } from "../../styles/inputs";
 import { DivForm, DivInputOio, MainInputs } from "../../styles/containers";
 import { ButtonEntrar, ButtonEscuro } from "../../styles/botoes";
 import { ErrorMsg, MainTitle, SpanLogin } from "../../styles/text";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { OioContext } from "../../Providers/Oio/oio";
 import { UserContext } from "../../Providers/User/User";
 
+interface iData {
+  email: string;
+  password: string;
+}
+
 function LoginPage() {
   const { oio, setOio } = useContext(OioContext);
-  const { setUser, setTechs, isLogged } = useContext(UserContext);
+  const { setUser, setTechs } = useContext(UserContext);
 
   const navigate = useNavigate();
   const schema = yup.object().shape({
@@ -29,7 +34,6 @@ function LoginPage() {
       ),
   });
 
-  useEffect(() => isLogged(), []);
   const {
     register,
     handleSubmit,
@@ -38,16 +42,15 @@ function LoginPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmitForm = (dados) => {
+  const onSubmitForm = (data: iData) => {
     instanceNoAuth
       .post("/sessions", {
-        email: dados.email,
-        password: dados.password,
+        email: data.email,
+        password: data.password,
       })
       .then((res) => {
         localStorage.setItem("@token", res.data.token);
         localStorage.setItem("@userId", res.data.user.id);
-        console.log(res.data.user);
         setUser(res.data.user);
         setTechs(res.data.user.techs);
         toast.success("Login feito com sucesso", {
@@ -63,9 +66,6 @@ function LoginPage() {
       });
   };
 
-  function proCadastro() {
-    navigate("/register");
-  }
   return (
     <MainInputs>
       <MainTitle>KenzieHub</MainTitle>
@@ -75,7 +75,6 @@ function LoginPage() {
           <label htmlFor="email">Email</label>
           <InputNormal
             type="email"
-            name=""
             id="email"
             placeholder="Digite seu e-mail"
             {...register("email")}
@@ -85,7 +84,6 @@ function LoginPage() {
           <DivInputOio>
             <InputNormal
               type={oio}
-              name=""
               id="senha"
               placeholder="Digite sua senha"
               {...register("password")}
@@ -103,12 +101,8 @@ function LoginPage() {
           <ButtonEntrar type="submit">Entrar</ButtonEntrar>
         </form>
         <SpanLogin>Ainda não tem cadastro?</SpanLogin>
-        <ButtonEscuro
-          style={{ width: "100%" }}
-          type="button"
-          onClick={proCadastro}
-        >
-          Cadastrar
+        <ButtonEscuro>
+          <Link to={"/register"}>Cadastrar</Link>
         </ButtonEscuro>
       </DivForm>
     </MainInputs>

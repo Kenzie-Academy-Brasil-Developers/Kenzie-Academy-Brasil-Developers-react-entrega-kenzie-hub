@@ -2,7 +2,11 @@ import { ModalProvider } from "./Modal/Modal";
 import { OioProvider } from "./Oio/oio";
 import { UserProvider } from "./User/User";
 
-export const Providers = ({ children }) => {
+interface iChildren {
+  children: React.ReactNode;
+}
+
+export const Providers = ({ children }: iChildren) => {
   return (
     <ModalProvider>
       <UserProvider>

@@ -16,6 +16,11 @@ import { ButtonEntrar } from "../../styles/botoes";
 import { TextoPqnClaro } from "../../styles/text";
 import { UserContext } from "../../Providers/User/User";
 
+interface iData {
+  techName: string;
+  techStatus: string;
+}
+
 function Modal() {
   const { setModal } = useContext(ModalContext);
   const { techs, setTechs } = useContext(UserContext);
@@ -32,7 +37,7 @@ function Modal() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmitForm = (data) => {
+  const onSubmitForm = (data: iData) => {
     instanceAuth
       .post("/users/techs", {
         title: data.techName,
@@ -65,7 +70,7 @@ function Modal() {
             <InputNormal type="text" id="nome" {...register("techName")} />
             {errors.techName?.message}
             <TextoPqnClaro htmlFor="status">Selecionar status</TextoPqnClaro>
-            <SelectForm name="" id="status" {...register("techStatus")}>
+            <SelectForm id="status" {...register("techStatus")}>
               <OptionForm value="iniciante">Iniciante</OptionForm>
               <OptionForm value="intermediario">Intermediario</OptionForm>
               <OptionForm value="avancado">Avançado</OptionForm>
