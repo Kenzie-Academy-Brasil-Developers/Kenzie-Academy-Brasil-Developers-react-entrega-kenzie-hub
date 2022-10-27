@@ -38,7 +38,7 @@ function LoginPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<iData>({
     resolver: yupResolver(schema),
   });
 

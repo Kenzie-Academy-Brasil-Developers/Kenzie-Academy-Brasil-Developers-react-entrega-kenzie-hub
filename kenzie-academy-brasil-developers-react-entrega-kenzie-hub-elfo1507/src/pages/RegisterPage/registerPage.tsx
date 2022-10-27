@@ -1,74 +1,14 @@
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { instanceNoAuth } from "../../axios";
+import { Link } from "react-router-dom";
 import { InputNormal, OptionForm, SelectForm } from "../../styles/inputs";
 import { DivForm, Header, MainInputs } from "../../styles/containers";
 import { ButtonEntrar, ButtonEscuro } from "../../styles/botoes";
 import { ErrorMsg, MainTitle, SpanLogin } from "../../styles/text";
-
-interface iData {
-  name?: string;
-  email?: string;
-  password?: string;
-  bio?: string;
-  contact?: string;
-  course_module?: string;
-}
+import { useContext } from "react";
+import { UserContext } from "../../Providers/User/User";
 
 function RegisterPage() {
-  const navigate = useNavigate();
-
-  const schema = yup.object().shape({
-    name: yup.string().required("Nome obrigatorio"),
-    email: yup.string().required("email obrigatorio").email("email invalido"),
-    password: yup
-      .string()
-      .required("senha obrigatoria")
-      .matches(
-        /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Za-z]).*$/,
-        "Senha invalida"
-      ),
-    confPass: yup
-      .string()
-      .required("confirmar senha obrigatorio")
-      .oneOf([yup.ref("password")], "senhas tem que ser iguais"),
-    bio: yup.string().required("bio obrigatoria"),
-    contact: yup.string().required("contato obrigatorio"),
-    course_module: yup.string().required("modulo obrigatorio"),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmitForm = (dados: iData) => {
-    instanceNoAuth
-      .post("/users", {
-        name: dados.name,
-        email: dados.email,
-        password: dados.password,
-        bio: dados.bio,
-        contact: dados.contact,
-        course_module: dados.course_module,
-      })
-      .then((res) => {
-        toast.success("Cadastro realizado com sucesso!", { theme: "dark" });
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Erro ao cadastrar, favor tentar novamente", {
-          theme: "dark",
-        });
-      });
-  };
+// usar useFormContext
+  const {handleSubmit, onSubmitForm, register, errors} = useContext(UserContext)
 
   return (
     <MainInputs>

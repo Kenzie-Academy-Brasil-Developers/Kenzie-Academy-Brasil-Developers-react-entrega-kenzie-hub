@@ -1,9 +1,13 @@
 import axios from "axios";
 
+interface iApi{
+  
+}
+
 export const instanceNoAuth = axios.create({
   baseURL: "https://kenziehub.herokuapp.com",
   timeout: 10000,
-  headers: { contentType: "application/json" },
+  headers: { ContentType: "application/json" },
 });
 
 export const instanceAuth = axios.create({
@@ -11,6 +15,6 @@ export const instanceAuth = axios.create({
   timeout: 10000,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("@token")}`,
-    contentType: "application/json",
+    ContentType: "application/json",
   },
 });
