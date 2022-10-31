@@ -1,9 +1,5 @@
 import axios from "axios";
 
-interface iApi{
-  
-}
-
 export const instanceNoAuth = axios.create({
   baseURL: "https://kenziehub.herokuapp.com",
   timeout: 10000,

@@ -11,9 +11,9 @@ import { ErrorMsg, MainTitle, SpanLogin } from "../../styles/text";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useContext } from "react";
 import { OioContext } from "../../Providers/Oio/oio";
-import { UserContext } from "../../Providers/User/User";
+import { iResponse, UserContext, iAxios } from "../../Providers/User/User";
 
-interface iData {
+interface iDados {
   email: string;
   password: string;
 }
@@ -38,13 +38,13 @@ function LoginPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iData>({
+  } = useForm<iDados>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmitForm = (data: iData) => {
+  const onSubmitForm = (data: iDados) => {
     instanceNoAuth
-      .post("/sessions", {
+      .post<iAxios<iResponse>>("/sessions", {
         email: data.email,
         password: data.password,
       })

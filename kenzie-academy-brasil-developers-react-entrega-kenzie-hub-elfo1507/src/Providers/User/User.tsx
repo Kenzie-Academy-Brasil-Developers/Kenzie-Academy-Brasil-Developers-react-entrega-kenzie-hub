@@ -10,6 +10,18 @@ interface iChildren {
   children: React.ReactNode;
 }
 
+interface iRegister{
+  id: string
+  name: string
+  email: string
+  course_module: string
+  bio: string
+  contact: string
+  created_at: string
+  updated_at: string
+  avatar_url: null
+}
+
 interface iTechs{
   title: string;
   status: string;
@@ -62,7 +74,14 @@ export type FieldErrors<
   TFieldValues extends iData = iData
 > = DeepMap<TFieldValues, FieldError>;
 
+export interface iAxios<i>{
+  data: i
+}
 
+export interface iResponse{
+  user: iUser
+  token: string
+}
 
 export const UserContext = createContext({} as iUserContext);
 
@@ -101,7 +120,7 @@ export const UserProvider = ({ children }: iChildren) => {
 
   const onSubmitForm = (dados: iData) => {
     instanceNoAuth
-      .post("/users", {
+      .post<iAxios<iRegister>>("/users", {
         name: dados.name,
         email: dados.email,
         password: dados.password,
