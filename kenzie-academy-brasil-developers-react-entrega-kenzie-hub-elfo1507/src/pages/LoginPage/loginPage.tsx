@@ -11,7 +11,7 @@ import { ErrorMsg, MainTitle, SpanLogin } from "../../styles/text";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useContext } from "react";
 import { OioContext } from "../../Providers/Oio/oio";
-import { iResponse, UserContext, iAxios } from "../../Providers/User/User";
+import { iResponse, UserContext } from "../../Providers/User/User";
 
 interface iDados {
   email: string;
@@ -44,11 +44,12 @@ function LoginPage() {
 
   const onSubmitForm = (data: iDados) => {
     instanceNoAuth
-      .post<iAxios<iResponse>>("/sessions", {
+      .post<iResponse>("/sessions", {
         email: data.email,
         password: data.password,
       })
       .then((res) => {
+        console.log(res.data)
         localStorage.setItem("@token", res.data.token);
         localStorage.setItem("@userId", res.data.user.id);
         setUser(res.data.user);

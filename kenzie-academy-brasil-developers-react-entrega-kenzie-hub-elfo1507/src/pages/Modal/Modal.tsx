@@ -34,15 +34,24 @@ function Modal() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<iData>({
     resolver: yupResolver(schema),
   });
   const onSubmitForm = (data: iData) => {
     instanceAuth
-      .post("/users/techs", {
-        title: data.techName,
-        status: data.techStatus,
-      })
+      .post(
+        "/users/techs",
+        {
+          title: data.techName,
+          status: data.techStatus,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("@token")}`,
+          },
+        }
+      )
       .then((res) => {
         setModal(false);
         setTechs([

@@ -1,14 +1,44 @@
+import * as yup from "yup";
 import { Link } from "react-router-dom";
 import { InputNormal, OptionForm, SelectForm } from "../../styles/inputs";
 import { DivForm, Header, MainInputs } from "../../styles/containers";
 import { ButtonEntrar, ButtonEscuro } from "../../styles/botoes";
 import { ErrorMsg, MainTitle, SpanLogin } from "../../styles/text";
 import { useContext } from "react";
-import { UserContext } from "../../Providers/User/User";
+import { iData, UserContext } from "../../Providers/User/User";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 function RegisterPage() {
-// usar useFormContext
-  const {handleSubmit, onSubmitForm, register, errors} = useContext(UserContext)
+  // usar useFormContext
+  const { onSubmitForm } = useContext(UserContext);
+
+  const schema = yup.object().shape({
+    name: yup.string().required("Nome obrigatorio"),
+    email: yup.string().required("email obrigatorio").email("email invalido"),
+    password: yup
+      .string()
+      .required("senha obrigatoria")
+      .matches(
+        /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Za-z]).*$/,
+        "Senha invalida"
+      ),
+    confPass: yup
+      .string()
+      .required("confirmar senha obrigatorio")
+      .oneOf([yup.ref("password")], "senhas tem que ser iguais"),
+    bio: yup.string().required("bio obrigatoria"),
+    contact: yup.string().required("contato obrigatorio"),
+    course_module: yup.string().required("modulo obrigatorio"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<iData>({
+    resolver: yupResolver(schema),
+  });
 
   return (
     <MainInputs>

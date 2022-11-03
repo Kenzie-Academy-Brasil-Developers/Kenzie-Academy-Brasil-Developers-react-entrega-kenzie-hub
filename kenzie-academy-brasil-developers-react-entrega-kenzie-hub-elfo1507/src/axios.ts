@@ -3,14 +3,16 @@ import axios from "axios";
 export const instanceNoAuth = axios.create({
   baseURL: "https://kenziehub.herokuapp.com",
   timeout: 10000,
-  headers: { ContentType: "application/json" },
 });
 
 export const instanceAuth = axios.create({
   baseURL: "https://kenziehub.herokuapp.com",
   timeout: 10000,
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("@token")}`,
-    ContentType: "application/json",
-  },
 });
+
+export const headersAuth = {
+  headers: {
+    "Content-Type": "application/json",
+    Authentication: `Bearer ${localStorage.getItem("@token")}`,
+  },
+};

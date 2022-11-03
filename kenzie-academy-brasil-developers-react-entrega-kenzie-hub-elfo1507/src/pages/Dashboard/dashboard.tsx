@@ -32,7 +32,12 @@ function Dashboard() {
   }
   function deletarTech(id: string) {
     instanceAuth
-      .delete(`/users/techs/${id}`)
+      .delete(`/users/techs/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("@token")}`,
+        },
+      })
       .then(() => {
         toast.success("Tecnologia deletada com sucesso", { theme: "dark" });
         setTechs(techs.filter((element) => element.id !== id));
